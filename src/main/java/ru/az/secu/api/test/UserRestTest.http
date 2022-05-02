@@ -1,0 +1,46 @@
+GET http://localhost:8088/api/admin/users/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NTE0ODUzNjgsImV4cCI6MTY1MTU3MTc2OH0.p0v1EJfKk15CUItufbM017k8izJxpXQ2ktvgn8siTds
+Accept: application/json
+
+###
+GET http://localhost:8088/api/auth/activation/ee11cbb1-9052-340b-87aa-c0ca060c23ee
+Accept: application/json
+
+###
+POST http://localhost:8088/api/users/change-password
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTQyNzc1NywiZXhwIjoxNjUxNTE0MTU3fQ.FnJDn7JWGj7mVJx3fNd56FxgV764iC86oxgDTIQr3rY
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234567890"
+}
+
+###
+POST http://localhost:8088/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTQyNTMxOCwiZXhwIjoxNjUxNTExNzE4fQ.GwB1netgiZ76_TTEHNIyD59zcESSH1VJrJuga_EFyF4
+Content-Type: application/json
+
+{
+  "id": 1,
+  "lastName": "Zaruchevsky",
+  "firstName": "Alexandr",
+  "email": "admin@admin.ru",
+  "role": "ADMIN"
+}
+
+###
+GET http://localhost:8088/api/admin/users/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY1MTQyMTAwNCwiZXhwIjoxNjUxNTA3NDA0fQ.StfJmYGRJOuVOTrKq4jgBkfTSeEKoRMIJ75jI5zzTEg
+Accept: application/json
+
+
+
+###
+GET http://localhost:8088/api/users?id=2
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NTE0MjEyNzcsImV4cCI6MTY1MTUwNzY3N30.HblyMvqEBw0Y2dhkaVZHiEApym8rY2lEtTUD_P1NEoQ
+Content-Type: application/json
+
+###
+
+

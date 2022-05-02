@@ -1,0 +1,23 @@
+POST http://localhost:8088/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1234567890"
+}
+
+###
+
+POST http://localhost:8088/api/auth/registration
+Content-Type: application/json
+
+{
+  "username": "user",
+  "email": "a@w.com",
+  "password": "12345678"
+}
+
+###
+GET http://localhost:8088/api/auth/logout
+Content-Type: application/json
+
