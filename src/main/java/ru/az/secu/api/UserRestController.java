@@ -16,7 +16,7 @@ import ru.az.secu.services.UserService;
 
 @RestController
 @RequestMapping("api/users")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 @PreAuthorize("hasAuthority('user:write')")
 public class UserRestController {
 

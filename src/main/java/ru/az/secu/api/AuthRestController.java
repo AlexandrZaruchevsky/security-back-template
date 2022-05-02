@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class AuthRestController {
 
     private final JwtUtil jwtUtil;
