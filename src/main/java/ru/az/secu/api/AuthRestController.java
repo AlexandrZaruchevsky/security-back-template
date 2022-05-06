@@ -11,6 +11,7 @@ import ru.az.secu.dto.UserDto;
 import ru.az.secu.dto.UserRegistrationDto;
 import ru.az.secu.model.Role;
 import ru.az.secu.model.User;
+import ru.az.secu.security.JwtAuthenticationException;
 import ru.az.secu.security.JwtUtil;
 import ru.az.secu.services.NotFoundException;
 import ru.az.secu.services.UserService;
@@ -37,6 +38,21 @@ public class AuthRestController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @PostMapping("validate")
+    public ResponseEntity<AuthDto> validateToken(
+            @RequestParam String token
+    ) throws JwtAuthenticationException {
+        if(jwtUtil.validateToken(token.trim())){
+            String username = jwtUtil.getUsername(token);
+            User userFromDb = userService.findByUsername(username);
+            AuthDto authDto = new AuthDto();
+            authDto.setToken(token);
+            authDto.setUserDto(UserDto.create(userFromDb));
+            return ResponseEntity.ok(authDto);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
     @PostMapping("login")
     public ResponseEntity<AuthDto> getToken(
             @RequestBody LoginPasswordDto loginPasswordDto
@@ -57,7 +73,8 @@ public class AuthRestController {
             @RequestBody UserRegistrationDto userRegistrationDto
     ) {
         User user = UserRegistrationDto.create(userRegistrationDto);
-        user.setActivationCode(UUID.nameUUIDFromBytes(userRegistrationDto.getUsername().getBytes()).toString());
+        user.setActivationCode(UUID.randomUUID().toString());
+//        user.setActivationCode(UUID.nameUUIDFromBytes(userRegistrationDto.getUsername().getBytes()).toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.USER);
         return ResponseEntity.ok(UserDto.create(userService.add(user)));
