@@ -1,5 +1,6 @@
 package ru.az.secu.services.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,6 +40,8 @@ public class UserAdminServiceImpl implements UserAdminService {
 
     @Override
     public User update(User user) throws MyException {
+        User userFromDb = findById(user.getId());
+        BeanUtils.copyProperties(user,userFromDb,"id", "created", "username", "password");
         return userService.update(user);
     }
 

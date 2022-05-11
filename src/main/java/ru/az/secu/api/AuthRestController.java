@@ -42,7 +42,7 @@ public class AuthRestController {
     public ResponseEntity<AuthDto> validateToken(
             @RequestParam String token
     ) throws JwtAuthenticationException {
-        if(jwtUtil.validateToken(token.trim())){
+        if (jwtUtil.validateToken(token.trim())) {
             String username = jwtUtil.getUsername(token);
             User userFromDb = userService.findByUsername(username);
             AuthDto authDto = new AuthDto();
@@ -58,7 +58,7 @@ public class AuthRestController {
             @RequestBody LoginPasswordDto loginPasswordDto
     ) {
         User userFomDb = userService.findByUsername(loginPasswordDto.getUsername());
-        if (userFomDb != null && passwordEncoder.matches(loginPasswordDto.getPassword(), userFomDb.getPassword())) {
+        if (userFomDb != null && passwordEncoder.matches(loginPasswordDto.getPassword(), userFomDb.getPassword()) && userFomDb.getActive()) {
             String token = jwtUtil.createToken(userFomDb.getUsername(), userFomDb.getRole().name());
             AuthDto authDto = new AuthDto();
             authDto.setToken(token);
