@@ -13,4 +13,6 @@ public interface UserService extends CrudService<User>{
 
     User activation(String code) throws NotFoundException;
 
+
+
 }

@@ -6,4 +6,6 @@ public interface UserAdminService extends CrudService<User> {
 
     long count();
 
+    User changeActive(Long id) throws MyException;
+
 }

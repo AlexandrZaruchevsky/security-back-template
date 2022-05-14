@@ -16,6 +16,7 @@ public class UserAdminDto {
     private String firstName;
     private String middleName;
     private String role;
+    private Boolean active;
 
     public static UserAdminDto create(User user) {
         UserAdminDto userDto = new UserAdminDto();

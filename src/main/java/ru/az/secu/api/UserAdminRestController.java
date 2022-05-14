@@ -1,6 +1,7 @@
 package ru.az.secu.api;
 
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,10 +28,10 @@ public class UserAdminRestController {
     }
 
     @GetMapping("all")
-    public ResponseEntity<List<UserDto>> getUsers() throws MyException {
+    public ResponseEntity<List<UserAdminDto>> getUsers() throws MyException {
         return ResponseEntity.ok(
                 userAdminService.findAll().stream()
-                        .map(UserDto::create).collect(Collectors.toList())
+                        .map(UserAdminDto::create).collect(Collectors.toList())
         );
     }
 
@@ -75,6 +76,13 @@ public class UserAdminRestController {
     ) throws MyException {
         User userFromDb = userAdminService.update(UserDto.create(userDto));
         return ResponseEntity.ok(UserDto.create(userFromDb));
+    }
+
+    @PostMapping("change-active/{id}")
+    public ResponseEntity<UserAdminDto> changeActive(
+            @PathVariable Long id
+    ) throws MyException {
+        return ResponseEntity.ok(UserAdminDto.create(userAdminService.changeActive(id)));
     }
 
 }

@@ -75,4 +75,13 @@ public class UserAdminServiceImpl implements UserAdminService {
     public List<User> findAll(Pageable pageable) {
         return null;
     }
+
+    @Override
+    public User changeActive(Long id) throws MyException {
+        User userFromDb = findById(id);
+        userFromDb.setActive(!userFromDb.getActive());
+        return userRepo.save(userFromDb);
+    }
+
+
 }
