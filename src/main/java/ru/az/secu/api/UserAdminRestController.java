@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.az.secu.dto.UserAdminDto;
 import ru.az.secu.dto.UserDto;
+import ru.az.secu.dto.UserStatisticDto;
 import ru.az.secu.model.User;
 import ru.az.secu.services.MyException;
 import ru.az.secu.services.UserAdminService;
@@ -31,6 +32,18 @@ public class UserAdminRestController {
                 userAdminService.findAll().stream()
                         .map(UserDto::create).collect(Collectors.toList())
         );
+    }
+
+    @GetMapping("count")
+    public ResponseEntity<UserStatisticDto> getCount() throws MyException {
+        List<User> all = userAdminService.findAll();
+        UserStatisticDto userStatisticDto = new UserStatisticDto();
+        long sizeAll = all.size();
+        userStatisticDto.setCount(sizeAll);
+        long sizeActive = all.stream().filter(User::getActive).count();
+        userStatisticDto.setCountActive(sizeActive);
+        userStatisticDto.setCountNotActive(sizeAll-sizeActive);
+        return ResponseEntity.ok(userStatisticDto);
     }
 
     @GetMapping("delete")
